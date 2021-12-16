@@ -1,5 +1,5 @@
 {
-    "name": "mingyoung/dingtalk",
+    "name": "adolphyu/dingtalk",
     "description": "EasyDingTalk, Alibaba Dingtalk SDK for PHP",
     "keywords": [
         "dingtalk",
@@ -14,6 +14,10 @@
         {
             "name": "张铭阳",
             "email": "mingyoungcheung@gmail.com"
+        },
+        {
+            "name": "余修方",
+            "email": "707877535@qq.com"
         }
     ],
     "require": {
