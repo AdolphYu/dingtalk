@@ -85,7 +85,7 @@ class OAuthClient extends Client
     public function redirect($url = null)
     {
         $query = [
-            'appid' => $this->credential['client_id'],
+            'appid' => $this->config['config']['app_key'],
             'response_type' => 'code',
             'scope' => $this->credential['scope'],
             'state' => $this->makeState(),
@@ -104,16 +104,16 @@ class OAuthClient extends Client
      */
     public function user()
     {
-        if (!$this->hasValidState($this->app['request']->get('state'))) {
-            throw new InvalidStateException();
-        }
+//        if (!$this->hasValidState($this->app['request']->get('state'))) {
+//            throw new InvalidStateException();
+//        }
 
         $data = [
             'tmp_auth_code' => $this->app['request']->get('code'),
         ];
 
         $query = [
-            'accessKey' => $this->credential['client_id'],
+            'accessKey' => $this->app['config']['app_key'],
             'timestamp' => $timestamp = (int) microtime(true) * 1000,
             'signature' => $this->signature($timestamp),
         ];
@@ -130,6 +130,6 @@ class OAuthClient extends Client
      */
     public function signature($timestamp)
     {
-        return base64_encode(hash_hmac('sha256', $timestamp, $this->credential['client_secret'], true));
+        return base64_encode(hash_hmac('sha256', $timestamp, $this->app['config']['app_secret'], true));
     }
 }
