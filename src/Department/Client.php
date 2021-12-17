@@ -24,7 +24,9 @@ class Client extends BaseClient
      */
     public function getSubDepartmentIds($id)
     {
-        return $this->client->get('department/list_ids', compact('id'));
+        return $this->client->post('topapi/v2/department/listsubid', [
+            'dept_id' => $id
+        ]);
     }
 
     /**
@@ -36,10 +38,10 @@ class Client extends BaseClient
      *
      * @return mixed
      */
-    public function list($id = null, bool $isFetchChild = false, $lang = null)
+    public function list($id = null, $lang = null)
     {
-        return $this->client->get('department/list', [
-            'id' => $id, 'lang' => $lang, 'fetch_child' => $isFetchChild ? 'true' : 'false',
+        return $this->client->POST('topapi/v2/department/listsub', [
+            'dept_id' => $id, 'language' => $lang
         ]);
     }
 
@@ -53,7 +55,9 @@ class Client extends BaseClient
      */
     public function get($id, $lang = null)
     {
-        return $this->client->get('department/get', compact('id', 'lang'));
+        return $this->client->post('topapi/v2/department/get', [
+            'dept_id' => $id, 'language' => $lang
+        ]);
     }
 
     /**
@@ -65,7 +69,9 @@ class Client extends BaseClient
      */
     public function getParentsById($id)
     {
-        return $this->client->get('department/list_parent_depts_by_dept', compact('id'));
+        return $this->client->post('topapi/v2/department/listparentbydept', [
+            'dept_id' => $id
+        ]);
     }
 
     /**
@@ -77,7 +83,9 @@ class Client extends BaseClient
      */
     public function getParentsByUserId($userId)
     {
-        return $this->client->get('department/list_parent_depts', compact('userId'));
+        return $this->client->get('topapi/v2/department/listparentbyuser', [
+            'userid' => $userId
+        ]);
     }
 
     /**
@@ -89,7 +97,7 @@ class Client extends BaseClient
      */
     public function create(array $params)
     {
-        return $this->client->postJson('department/create', $params);
+        return $this->client->postJson('topapi/v2/department/create', $params);
     }
 
     /**
@@ -100,9 +108,9 @@ class Client extends BaseClient
      *
      * @return mixed
      */
-    public function update($id, array $params)
+    public function update(array $params)
     {
-        return $this->client->postJson('department/update', compact('id') + $params);
+        return $this->client->postJson('topapi/v2/department/update', $params);
     }
 
     /**
@@ -114,6 +122,8 @@ class Client extends BaseClient
      */
     public function delete($id)
     {
-        return $this->client->get('department/delete', compact('id'));
+        return $this->client->post('topapi/v2/department/delete', [
+            'dept_id' => $id
+        ]);
     }
 }
