@@ -71,8 +71,8 @@ class Client extends BaseClient
      */
     public function getDetailedUsers($departmentId, $offset, $size, $order = null, $lang = null)
     {
-        return $this->client->get('user/listbypage', [
-            'department_id' => $departmentId, 'offset' => $offset, 'size' => $size, 'order' => $order, 'lang' => $lang,
+        return $this->client->get('topapi/v2/user/list', [
+            'dept_id' => $departmentId, 'cursor' => $offset, 'size' => $size, 'order_field' => $order, 'language' => $lang,
         ]);
     }
 
@@ -222,7 +222,7 @@ class Client extends BaseClient
      */
     public function getUserIdByPhone($mobile = '')
     {
-        return $this->client->get('user/get_by_mobile', compact('mobile'));
+        return $this->client->post('topapi/v2/user/getbymobile', compact('mobile'));
     }
 
     /**
