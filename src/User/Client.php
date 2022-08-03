@@ -222,7 +222,7 @@ class Client extends BaseClient
      */
     public function getUserIdByPhone($mobile = '')
     {
-        return $this->client->post('topapi/v2/user/getbymobile', compact('mobile'));
+        return $this->client->get('user/get_by_mobile', ['query'=>['mobile'=>$mobile]]);
     }
 
     /**
